@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <title>👿 Devil Tetris 666 👿</title>
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="theme-color" content="#07000a">
+    <meta name="color-scheme" content="dark">
+
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Devil Tetris">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-flames"></div>
+    <div class="bg-pentagram"></div>
+
+    <div id="gameContainer">
+        <header class="title-bar">
+            <h1 class="title">👿 DEVIL <span class="title-accent">TETRIS</span> 👿</h1>
+            <p class="subtitle">Reach <span class="six">666</span> to unlock the forbidden links</p>
+        </header>
+
+        <div class="play-area">
+            <aside class="panel left-panel">
+                <div class="stat">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value" id="score">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Lines</div>
+                    <div class="stat-value" id="lines">0</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-label">Level</div>
+                    <div class="stat-value" id="level">1</div>
+                </div>
+                <div class="hold-box">
+                    <div class="stat-label">Hold</div>
+                    <canvas id="holdCanvas" width="120" height="120"></canvas>
+                </div>
+            </aside>
+
+            <div class="board-wrap">
+                <canvas id="gameCanvas" width="300" height="600"></canvas>
+                <div id="comboFlash" class="combo-flash hidden"></div>
+            </div>
+
+            <aside class="panel right-panel">
+                <div class="next-box">
+                    <div class="stat-label">Next</div>
+                    <canvas id="nextCanvas" width="120" height="120"></canvas>
+                </div>
+                <div class="controls">
+                    <div class="stat-label">Controls</div>
+                    <ul>
+                        <li><kbd>←</kbd><kbd>→</kbd> Move</li>
+                        <li><kbd>↓</kbd> Soft drop</li>
+                        <li><kbd>Space</kbd> Hard drop</li>
+                        <li><kbd>↑</kbd> / <kbd>X</kbd> Rotate</li>
+                        <li><kbd>C</kbd> Hold</li>
+                        <li><kbd>P</kbd> Pause</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+
+        <div id="touchControls" class="touch-controls" aria-hidden="true">
+            <div class="touch-row touch-row-top">
+                <button type="button" class="touch-btn" data-action="hold" aria-label="Hold">HOLD</button>
+                <button type="button" class="touch-btn" data-action="rotate" aria-label="Rotate">↻</button>
+                <button type="button" class="touch-btn" data-action="pause" aria-label="Pause">II</button>
+            </div>
+            <div class="touch-row touch-row-bottom">
+                <button type="button" class="touch-btn touch-arrow" data-action="left" aria-label="Move left">◀</button>
+                <button type="button" class="touch-btn touch-arrow" data-action="down" aria-label="Soft drop">▼</button>
+                <button type="button" class="touch-btn touch-arrow touch-drop" data-action="drop" aria-label="Hard drop">⤓</button>
+                <button type="button" class="touch-btn touch-arrow" data-action="right" aria-label="Move right">▶</button>
+            </div>
+        </div>
+
+        <div id="gameOver" class="hidden overlay">
+            <div class="overlay-content">
+                <h1>GAME OVER</h1>
+                <p id="finalScore"></p>
+                <button onclick="location.reload()" class="close-btn">Play Again</button>
+            </div>
+        </div>
+
+        <div id="pauseOverlay" class="hidden overlay">
+            <div class="overlay-content">
+                <h1>PAUSED</h1>
+                <p class="devil-message">Press P to continue your descent...</p>
+            </div>
+        </div>
+
+        <div id="sixSixSixOverlay" class="hidden overlay">
+            <div class="overlay-content sixsixsix">
+                <h1 class="six-flicker">🔥 666 POINTS! 🔥</h1>
+                <p class="devil-message">The Devil Approves... The seal is broken.</p>
+                <div class="links-grid">
+                    <a href="https://www.tiktok.com/@grokgrok_nl" target="_blank" rel="noopener" class="link-btn tiktok">
+                        <span>🎵</span> @grokgrok_nl
+                    </a>
+                    <a href="https://www.tiktok.com/@xxanoniem2026xx" target="_blank" rel="noopener" class="link-btn tiktok">
+                        <span>🎵</span> @xxanoniem2026xx
+                    </a>
+                    <a href="https://clapperapp.com/xxanoniem22xx?is_invite=1&r=2PVrkpy7Pj&c=in&m=co" target="_blank" rel="noopener" class="link-btn clapper">
+                        <span>🎬</span> Clapper App
+                    </a>
+                    <a href="https://joinfambase.com/invite?c=mY4JXxYG" target="_blank" rel="noopener" class="link-btn fambase">
+                        <span>⭐</span> FamBase
+                    </a>
+                </div>
+                <button onclick="closeSixSixSixOverlay()" class="close-btn">Continue Playing</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('sw.js').catch(() => {});
+        });
+      }
+    </script>
+</body>
+</html>

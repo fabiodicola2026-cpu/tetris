@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(135deg, #1a0000 0%, #2d0000 50%, #1a0000 100%);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #ff4444;
+    overflow: hidden;
+}
+
+#gameContainer {
+    position: relative;
+    width: 800px;
+    height: 400px;
+    background: linear-gradient(to bottom, #1a1a2e 0%, #16213e 100%);
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), inset 0 0 20px rgba(255, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+#gameCanvas {
+    display: block;
+    background: linear-gradient(to bottom, #0f0f1e 0%, #1a1a2e 100%);
+    width: 100%;
+    height: 100%;
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4444;
+    text-shadow: 0 0 10px #ff0000;
+    z-index: 10;
+}
+
+#gameOver {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    padding: 40px;
+    border: 3px solid #ff0000;
+    text-align: center;
+    z-index: 100;
+    border-radius: 10px;
+}
+
+#gameOver h1 {
+    color: #ff0000;
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px #ff0000;
+}
+
+#gameOver p {
+    color: #ff4444;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+#gameOver button {
+    background: #ff0000;
+    color: #000;
+    border: none;
+    padding: 10px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+#gameOver button:hover {
+    background: #ff4444;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff0000;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#devil-watcher {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 80px;
+    height: 80px;
+    z-index: 5;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.overlay-content {
+    background: linear-gradient(135deg, #1a0000 0%, #2d0000 100%);
+    border: 4px solid #ff0000;
+    padding: 60px;
+    text-align: center;
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.8);
+    animation: scaleIn 0.5s ease-out;
+    max-width: 500px;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.overlay-content h1 {
+    color: #ff0000;
+    font-size: 48px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px #ff0000;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.devil-message {
+    color: #ff4444;
+    font-size: 18px;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.link-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(255, 0, 0, 0.1);
+    border: 2px solid #ff4444;
+    color: #ff4444;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.link-btn span {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.link-btn:hover {
+    background: rgba(255, 0, 0, 0.3);
+    border-color: #ff0000;
+    color: #ff0000;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+}
+
+.close-btn {
+    background: #ff0000;
+    color: #000;
+    border: none;
+    padding: 12px 40px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.close-btn:hover {
+    background: #ff4444;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #ff0000;
+}
